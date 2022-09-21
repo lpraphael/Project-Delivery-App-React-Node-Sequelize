@@ -65,6 +65,7 @@ function Register() {
             id="senha"
             name="senha"
             placeholder="******"
+            type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
           />
