@@ -15,7 +15,7 @@ function Routes() {
         path="/"
         element={ <Navigate to="/login" replace /> }
       />
-      <Route exact path='/register' element={ <Register /> } />
+      <Route exact path="/register" element={ <Register /> } />
     </Switch>
   );
 }
