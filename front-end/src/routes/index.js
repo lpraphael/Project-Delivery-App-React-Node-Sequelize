@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes as Switch, Route } from 'react-router-dom';
+import { Routes as Switch, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/login';
 
 function Routes() {
@@ -7,9 +7,14 @@ function Routes() {
     <Switch>
       <Route
         exact
-        path="/"
+        path="/login"
         element={ <Login /> }
       />
+      <Route
+        path="/"
+        element={ <Navigate to="/login" replace /> }
+      />
+
     </Switch>
   );
 }
