@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
+import { validateEmail,
+  validateName, validatePassword } from '../services/registerValidation';
 import requestRegister from '../services/request';
 
 function Register() {
@@ -8,6 +10,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
   const [failedTryRegister, setFailedTryRegister] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const register = async (event) => {
     event.preventDefault();
@@ -23,14 +26,18 @@ function Register() {
 
   useEffect(() => {
     setFailedTryRegister(false);
+    const validation = validateName(nameRegistered)
+    && validateEmail(email)
+    && validatePassword(password);
+    if (validation) setIsDisabled(false);
   }, [nameRegistered, email, password]);
 
   if (isRegistered) return <Navigate to="/customer/products" />;
 
   return (
     <>
-      <header>Cadastro</header>
-      <main>
+      <h1>Cadastro</h1>
+      <form>
         <label htmlFor="nome">
           <input
             data-testid="common_register__input-name"
@@ -66,11 +73,12 @@ function Register() {
           data-testid="common_register__button-register"
           name="cadastro"
           type="submit"
+          disabled={ isDisabled }
           onClick={ (event) => register(event) }
         >
           Cadastrar
         </button>
-      </main>
+      </form>
       <footer>
         { (failedTryRegister)
           ? (
