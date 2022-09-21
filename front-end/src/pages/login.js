@@ -25,7 +25,7 @@ function Login() {
   const handleClick = () => {
     localStorage.setItem('user', JSON.stringify({ email: user.email }));
 
-    const login = true;
+    const login = false;
 
     if (!login) {
       setIsLogged(false);
@@ -65,7 +65,8 @@ function Login() {
       >
         LOGIN
       </button>
-      <p hidden={ isLogged }>mensagem de erro!</p>
+      { !isLogged
+      && <p data-testid="common_login__element-invalid-email">Mensagem de erro!</p> }
     </main>
   );
 }
