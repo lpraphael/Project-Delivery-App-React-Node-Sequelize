@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router-dom';
+import { validateEmail, validatePassword } from '../services/registerValidation';
+import { signIn } from '../services/request';
 
 function Login() {
   const [user, setUser] = useState({ password: '', email: '' });
   const [disable, setDisable] = useState(true);
-  const [isLogged, setIsLogged] = useState(true);
-  // const history = useHistory();
+  const [isLogged, setIsLogged] = useState(false);
+  const [failedTryLogin, setFailedTryLogin] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const MIN_LENGTH = 6;
+    setFailedTryLogin(false);
     const { password, email } = user;
-    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const validateEmail = regexEmail.test(email);
-    if (password.length >= MIN_LENGTH && validateEmail) {
+    const validation = validateEmail(email) && validatePassword(password);
+    if (validation) {
       setDisable(false);
     } else {
       setDisable(true);
@@ -22,15 +25,24 @@ function Login() {
     setUser((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleClick = () => {
-    localStorage.setItem('user', JSON.stringify({ email: user.email }));
+  const login = async (event) => {
+    event.preventDefault();
 
-    const login = false;
+    try {
+      const { role } = await signIn('/login', { email, password });
 
-    if (!login) {
+      setToken(token);
+
+      localStorage.setItem('role', role);
+
+      setIsLogged(true);
+    } catch (error) {
+      setFailedTryLogin(true);
       setIsLogged(false);
     }
   };
+
+  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <main>
@@ -61,12 +73,26 @@ function Login() {
         type="button"
         data-testid="common_login__button-login"
         disabled={ disable }
-        onClick={ handleClick }
+        onClick={ login }
       >
         LOGIN
       </button>
-      { !isLogged
-      && <p data-testid="common_login__element-invalid-email">Mensagem de erro!</p> }
+      <button
+        type="button"
+        data-testid="common_login__button-login"
+        onClick={ () => navigate('/register') }
+      >
+        Ainda não tenho conta
+      </button>
+      { failedTryLogin
+      && (
+        <p data-testid="common_login__element-invalid-email">
+          {
+            `O endereço de e-mail ou a senha não estão corretos.
+            Por favor, tente novamente.`
+          }
+        </p>
+      )}
     </main>
   );
 }
