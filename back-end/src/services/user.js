@@ -2,7 +2,7 @@ const md5 = require('md5');
 const jwt = require('jsonwebtoken');
 const { StatusCodes } = require('http-status-codes');
 const fs = require('fs');
-const { user, product } = require('../database/models');
+const { user } = require('../database/models');
 
 const login = async ({ email, password }) => {
   const ERROR_MESSAGE = 'Incorrect email or password';
