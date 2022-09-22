@@ -10,4 +10,9 @@ const requestRegister = async () => {
   return data;
 };
 
+export const signIn = async () => {
+  const { data } = await API.post(url, body);
+  return data;
+};
+
 export default requestRegister;
