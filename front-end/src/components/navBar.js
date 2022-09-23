@@ -33,9 +33,11 @@ export default function NavBar() {
       >
         MEUS PEDIDOS
       </button>
-      <h1>
+      <h2
+        data-testId="customer_products__element-navbar-user-full-name"
+      >
         { name }
-      </h1>
+      </h2>
       <button
         className="logOut-icon"
         type="submit"

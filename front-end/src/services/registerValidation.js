@@ -9,5 +9,5 @@ export const validateEmail = (email) => {
 
 export const validatePassword = (password) => {
   const MIN_LENGTH = 6;
-  return password.length > MIN_LENGTH;
+  return password.length >= MIN_LENGTH;
 };

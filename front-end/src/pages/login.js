@@ -38,6 +38,7 @@ function Login() {
       dispatch(actionUser({ name, role, email }));
 
       localStorage.setItem('role', role);
+      localStorage.setItem('name', name);
 
       navigate('/customer/products');
     } catch (error) {
@@ -47,6 +48,7 @@ function Login() {
 
   return (
     <main>
+      <image />
       <h1>Login</h1>
       <label htmlFor="email">
         <input
@@ -80,7 +82,7 @@ function Login() {
       </button>
       <button
         type="button"
-        data-testid="common_login__button-login"
+        data-testid="common_login__button-register"
         onClick={ () => navigate('/register') }
       >
         Ainda não tenho conta
