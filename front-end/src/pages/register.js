@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import { validateEmail,
   validateName, validatePassword } from '../services/registerValidation';
-import requestRegister from '../services/request';
+import { requestRegister } from '../services/request';
 
 function Register() {
   const [nameRegistered, setNameRegistered] = useState('');
