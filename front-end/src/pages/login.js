@@ -38,6 +38,7 @@ function Login() {
       dispatch(actionUser({ name, role, email }));
 
       localStorage.setItem('role', role);
+      localStorage.setItem('name', name);
 
       navigate('/customer/products');
     } catch (error) {
