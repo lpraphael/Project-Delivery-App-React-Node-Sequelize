@@ -1,4 +1,6 @@
-import OrderContainer from '../components/orderContainer';
+import React, { useEffect, useState } from 'react';
+import NavBar from '../components/navBar';
+import OrderContainer from '../components/ordersContainer';
 import { API } from '../services/request';
 
 function SellerOrder() {
@@ -10,11 +12,12 @@ function SellerOrder() {
   }, []);
 
   return (
-    <div>
+    <>
+      <NavBar />
       { sales && sales.map((sale, index) => (
         <OrderContainer key={ index } sale={ sale } />
       ))}
-    </div>
+    </>
   );
 }
 

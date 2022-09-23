@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 function OrderContainer({ sale }) {
   const [bgColor, setBgColor] = useState('');
@@ -25,12 +26,13 @@ function OrderContainer({ sale }) {
       setBgColor('#00CC9B');
       break;
     default:
+      setBgColor('#FF0000');
       break;
     }
   }, [status, statusTypes.Entregue, statusTypes.Pendente, statusTypes.Preparando]);
 
   return (
-    <section>
+    <Link to={ `/seller/orders/${id}` }>
       <div
         data-testid={ `seller_orders__element-order-id-${id}` }
       >
@@ -52,7 +54,7 @@ function OrderContainer({ sale }) {
       <div data-testid={ `seller_orders__element-card-address-${id}` }>
         {`${deliveryAddress}, ${deliveryNumber}`}
       </div>
-    </section>
+    </Link>
   );
 }
 
