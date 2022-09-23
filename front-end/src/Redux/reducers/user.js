@@ -2,15 +2,19 @@ const VALIDATION_USER = 'VALIDATION_USER';
 
 const initialState = {
   user: {
+    name: '',
+    role: '',
     email: '',
-    password: '',
   },
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
   case VALIDATION_USER:
-    return { ...state, email: action.value, password: action.value };
+    return {
+      ...state,
+      user: action.value,
+    };
   default:
     return state;
   }
