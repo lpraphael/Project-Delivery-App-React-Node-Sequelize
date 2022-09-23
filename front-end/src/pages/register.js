@@ -22,7 +22,7 @@ function Register() {
       const newUser = await
       requestRegister('/register', { nameRegistered, emailRegister, password });
 
-      //   Retorno do back-end: return { user: { id, role, name, email }, token };
+      //   Retorno do login back-end(aguardando back do cadastro): return { user: { id, role, name, email }, token };
       const { name, email } = newUser.user;
       dispatch(registerNewUserAction({ name, email }));
 
@@ -41,6 +41,7 @@ function Register() {
     && validateEmail(emailRegister)
     && validatePassword(password);
     if (validation) setIsDisabled(false);
+    else setIsDisabled(true);
   }, [nameRegistered, emailRegister, password]);
 
   if (isRegistered) return <Navigate to="/customer/products" />;
@@ -75,7 +76,7 @@ function Register() {
             data-testid="common_register__input-password"
             id="senha"
             name="senha"
-            placeholder="******"
+            placeholder="*******"
             type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
