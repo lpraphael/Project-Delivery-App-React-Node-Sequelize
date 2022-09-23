@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'http://localhost:3001',
 });
 
 // esperando o back para confirmar se é preciso usar as {}
@@ -10,7 +10,7 @@ const requestRegister = async () => {
   return data;
 };
 
-export const signIn = async () => {
+export const signIn = async (url, body) => {
   const { data } = await API.post(url, body);
   return data;
 };
