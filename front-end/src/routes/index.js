@@ -3,19 +3,25 @@ import { Routes as Switch, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/login';
 import Register from '../pages/register';
 import SellerOrder from '../pages/sellerOrders';
+import Products from '../pages/products';
 
 function Routes() {
   return (
     <Switch>
       <Route
         exact
-        path="/login"
-        element={ <Login /> }
+        path="/register"
+        element={ <Register /> }
       />
       <Route
         exact
-        path="/register"
-        element={ <Register /> }
+        path="/customer/products"
+        element={ <Products /> }
+      />
+      <Route
+        exact
+        path="/login"
+        element={ <Login /> }
       />
       <Route
         exact

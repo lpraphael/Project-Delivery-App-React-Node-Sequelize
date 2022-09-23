@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../services/registerValidation';
+import { actionUser } from '../Redux/actions';
 import { signIn } from '../services/request';
 
 function Login() {
   const [user, setUser] = useState({ password: '', email: '' });
   const [disable, setDisable] = useState(true);
-  const [isLogged, setIsLogged] = useState(false);
   const [failedTryLogin, setFailedTryLogin] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setFailedTryLogin(false);
@@ -29,20 +31,19 @@ function Login() {
     event.preventDefault();
 
     try {
-      const { role } = await signIn('/login', { email, password });
+      const result = await signIn('/login', user);
 
-      setToken(token);
+      const { name, role, email } = result.user;
+
+      dispatch(actionUser({ name, role, email }));
 
       localStorage.setItem('role', role);
 
-      setIsLogged(true);
+      navigate('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);
-      setIsLogged(false);
     }
   };
-
-  if (isLogged) return <Navigate to="/customer/products" />;
 
   return (
     <main>
@@ -70,10 +71,10 @@ function Login() {
         />
       </label>
       <button
-        type="button"
+        type="submit"
         data-testid="common_login__button-login"
         disabled={ disable }
-        onClick={ login }
+        onClick={ (event) => login(event) }
       >
         LOGIN
       </button>
