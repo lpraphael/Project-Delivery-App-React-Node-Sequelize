@@ -6,8 +6,9 @@ export default function NavBar() {
   const [name, setName] = useState('');
 
   useEffect(() => {
-    const userName = localStorage.getItem('name');
-    setName(userName);
+    const user = JSON.parse(localStorage.getItem('user'));
+    setName(user.name);
+    console.log(user.name);
   }, []);
 
   const handleLogout = () => {
@@ -21,7 +22,7 @@ export default function NavBar() {
         className="product-icon"
         type="button"
         onClick={ () => { navigate('/customer/products'); } }
-        data-testId="customer_products__element-navbar-link-products"
+        data-testid="customer_products__element-navbar-link-products"
       >
         PRODUTOS
       </button>
@@ -29,18 +30,20 @@ export default function NavBar() {
         className="orders-icon"
         type="button"
         onClick={ () => { navigate('/customer/orders'); } }
-        data-testId="customer_products__element-navbar-link-orders"
+        data-testid="customer_products__element-navbar-link-orders"
       >
         MEUS PEDIDOS
       </button>
-      <h1>
+      <h2
+        data-testid="customer_products__element-navbar-user-full-name"
+      >
         { name }
-      </h1>
+      </h2>
       <button
         className="logOut-icon"
         type="submit"
         onClick={ handleLogout }
-        data-testId="customer_products__element-navbar-link-logout"
+        data-testid="customer_products__element-navbar-link-logout"
       >
         SAIR
       </button>
