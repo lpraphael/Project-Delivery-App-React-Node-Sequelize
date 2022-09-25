@@ -3,7 +3,9 @@ const { product } = require('../database/models');
 const productService = require('../services/products');
 
 const listAll = async (_req, res) => {
-  const allProducts = await product.findAll();
+  const allProducts = await product.findAll({
+    attributes: { exclude: ['updatedAt', 'createdAt'] },
+  });
 
   return res.status(StatusCodes.OK).json(allProducts);
 };
