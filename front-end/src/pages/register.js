@@ -7,8 +7,8 @@ import { validateEmail,
 import { requestRegister } from '../services/request';
 
 function Register() {
-  const [nameRegistered, setNameRegistered] = useState('');
-  const [emailRegister, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isRegistered, setIsRegistered] = useState(false);
   const [failedTryRegister, setFailedTryRegister] = useState(false);
@@ -19,13 +19,9 @@ function Register() {
     event.preventDefault();
 
     try {
-      const newUser = await
-      requestRegister('/register', { nameRegistered, emailRegister, password });
+      await requestRegister('/register', { name, email, password });
 
-      //   Retorno do login back-end(aguardando back do cadastro): return { user: { id, role, name, email }, token };
-      const { name, email } = newUser.user;
       dispatch(registerNewUserAction({ name, email }));
-
       localStorage.setItem('name', name);
 
       setIsRegistered(true);
@@ -37,12 +33,13 @@ function Register() {
 
   useEffect(() => {
     setFailedTryRegister(false);
-    const validation = validateName(nameRegistered)
-    && validateEmail(emailRegister)
+    const validation = validateName(name)
+    && validateEmail(email)
     && validatePassword(password);
+
     if (validation) setIsDisabled(false);
     else setIsDisabled(true);
-  }, [nameRegistered, emailRegister, password]);
+  }, [name, email, password]);
 
   if (isRegistered) return <Navigate to="/customer/products" />;
 
@@ -56,8 +53,8 @@ function Register() {
             id="nome"
             name="nome"
             placeholder="Seu nome"
-            value={ nameRegistered }
-            onChange={ ({ target: { value } }) => setNameRegistered(value) }
+            value={ name }
+            onChange={ ({ target: { value } }) => setName(value) }
           />
         </label>
         <label htmlFor="email">
@@ -67,7 +64,7 @@ function Register() {
             name="email"
             placeholder="Seu email"
             type="email"
-            value={ emailRegister }
+            value={ email }
             onChange={ ({ target: { value } }) => setEmail(value) }
           />
         </label>
@@ -76,7 +73,7 @@ function Register() {
             data-testid="common_register__input-password"
             id="senha"
             name="senha"
-            placeholder="*******"
+            placeholder="******"
             type="password"
             value={ password }
             onChange={ ({ target: { value } }) => setPassword(value) }
