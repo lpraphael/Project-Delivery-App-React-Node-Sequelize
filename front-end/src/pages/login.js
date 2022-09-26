@@ -37,9 +37,12 @@ function Login() {
 
       dispatch(actionUser({ name, role, email }));
 
-      localStorage.setItem('role', role);
-      localStorage.setItem('name', name);
-
+      localStorage.setItem('user', JSON.stringify({
+        name,
+        email,
+        role,
+        token: result.token,
+      }));
       navigate('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);

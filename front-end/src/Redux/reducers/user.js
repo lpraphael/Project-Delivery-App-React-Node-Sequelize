@@ -1,4 +1,4 @@
-const VALIDATION_USER = 'VALIDATION_USER';
+import { VALIDATION_USER, REGISTER_NEW_USER } from '../actions';
 
 const initialState = {
   user: {
@@ -14,6 +14,15 @@ const userReducer = (state = initialState, action) => {
     return {
       ...state,
       user: action.value,
+    };
+  case REGISTER_NEW_USER:
+    return {
+      ...state,
+      user: {
+        name: action.value.name,
+        role: 'customer',
+        email: action.value.email,
+      },
     };
   default:
     return state;
