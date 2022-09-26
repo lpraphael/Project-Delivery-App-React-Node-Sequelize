@@ -4,6 +4,7 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import SellerOrder from '../pages/sellerOrders';
 import Products from '../pages/products';
+import Admin from '../pages/admin';
 import Checkout from '../pages/checkout';
 
 function Routes() {
@@ -33,6 +34,11 @@ function Routes() {
         exact
         path="/seller/orders"
         element={ <SellerOrder /> }
+      />
+      <Route
+        exact
+        path="/admin/manage"
+        element={ <Admin /> }
       />
       <Route
         path="/"

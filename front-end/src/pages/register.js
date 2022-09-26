@@ -22,7 +22,11 @@ function Register() {
       await requestRegister('/register', { name, email, password });
 
       dispatch(registerNewUserAction({ name, email }));
-      localStorage.setItem('name', name);
+      localStorage.setItem('user', JSON.stringify({
+        name,
+        email,
+        role: 'customer',
+      }));
 
       setIsRegistered(true);
     } catch (error) {
