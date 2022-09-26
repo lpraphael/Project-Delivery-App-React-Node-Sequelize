@@ -9,7 +9,6 @@ function SellerOrder() {
   useEffect(() => {
     API.get('/seller/orders').then((response) => { setSales(response.data); })
       .catch((err) => console.log(err));
-    console.log(sales);
   }, []);
 
   return (
