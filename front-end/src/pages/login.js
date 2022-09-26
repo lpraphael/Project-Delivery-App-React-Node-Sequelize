@@ -34,16 +34,27 @@ function Login() {
       const result = await signIn('/login', user);
 
       const { name, role, email } = result.user;
-
       dispatch(actionUser({ name, role, email }));
-
       localStorage.setItem('user', JSON.stringify({
         name,
         email,
         role,
         token: result.token,
       }));
-      navigate('/customer/products');
+
+      switch (role) {
+      case 'customer':
+        navigate('/customer/products');
+        break;
+      case 'seller':
+        navigate('/seller/orders');
+        break;
+      case 'administrator':
+        navigate('/admin/manage');
+        break;
+      default:
+        break;
+      }
     } catch (error) {
       setFailedTryLogin(true);
     }
@@ -84,7 +95,7 @@ function Login() {
         LOGIN
       </button>
       <button
-        type="button"
+        type="submit"
         data-testid="common_login__button-register"
         onClick={ () => navigate('/register') }
       >
