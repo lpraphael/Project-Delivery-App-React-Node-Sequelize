@@ -4,6 +4,7 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import SellerOrder from '../pages/sellerOrders';
 import Products from '../pages/products';
+import Checkout from '../pages/checkout';
 
 function Routes() {
   return (
@@ -17,6 +18,11 @@ function Routes() {
         exact
         path="/customer/products"
         element={ <Products /> }
+      />
+      <Route
+        exact
+        path="/customer/checkout"
+        element={ <Checkout /> }
       />
       <Route
         exact
