@@ -21,13 +21,13 @@ const register = async ({ name, email, password, role = 'customer' }) => {
 
   const passwordEncrypt = md5(password);
 
-  const userCreated = await user.create({ email,
+  const { id } = await user.create({ email,
     name,
     role,
     password: passwordEncrypt,
   });
 
-  return userCreated;
+  return { id, name, email, role };
 };
 
 const login = async ({ email, password }) => {
