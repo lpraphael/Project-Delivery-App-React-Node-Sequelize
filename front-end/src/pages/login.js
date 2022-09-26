@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../services/registerValidation';
 import { actionUser } from '../Redux/actions';
-import { signIn } from '../services/request';
+import { setToken, signIn } from '../services/request';
 
 function Login() {
   const [user, setUser] = useState({ password: '', email: '' });
@@ -33,7 +33,10 @@ function Login() {
     try {
       const result = await signIn('/login', user);
 
-      const { name, role, email } = result.user;
+      const { name, role, email, token } = result.user;
+
+      setToken({ token });
+
       dispatch(actionUser({ name, role, email }));
       localStorage.setItem('user', JSON.stringify({
         name,
