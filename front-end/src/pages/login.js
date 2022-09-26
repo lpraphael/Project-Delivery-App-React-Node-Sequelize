@@ -43,7 +43,6 @@ function Login() {
         role,
         token: result.token,
       }));
-
       navigate('/customer/products');
     } catch (error) {
       setFailedTryLogin(true);
@@ -52,6 +51,7 @@ function Login() {
 
   return (
     <main>
+      <image />
       <h1>Login</h1>
       <label htmlFor="email">
         <input
