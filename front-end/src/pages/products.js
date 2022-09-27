@@ -17,8 +17,6 @@ export default function Products() {
         return drink;
       });
 
-      console.log(result);
-
       dispatch(actionSaveDrinks(result));
     };
 

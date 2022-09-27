@@ -12,19 +12,22 @@ export default function ShoppingCart() {
     setArrayOfDrinks(qtyOfDrinks);
   }, [arrayOfDrinks]);
 
-  console.log('aqui', qtyOfDrinks);
-
   const total = totalValue(qtyOfDrinks);
+  console.log(typeof (total));
 
   return (
-    <aside>
-      <button
-        type="button"
+    <button
+      type="button"
+      data-testId="customer_products__button-cart"
+      onClick={ () => navigate('/customer/checkout') }
+      disabled={ Number(total) === 0.00 }
+    >
+      Meu carrinho: R$
+      <p
         data-testId="customer_products__checkout-bottom-value"
-        onClick={ () => navigate('/customer/checkout') }
       >
         { total.replace('.', ',') }
-      </button>
-    </aside>
+      </p>
+    </button>
   );
 }
