@@ -4,7 +4,7 @@ const saleService = require('../services/sales');
 const listOne = async (req, res) => {
   const { id } = req.params;
   try {
-    const sale = await saleService.findOne(id);
+    const sale = await saleService.listOne(id);
     if (sale.err) return res.status(sale.code).json({ message: sale.err });
     return res.status(StatusCodes.OK).json(sale);
   } catch (error) {

@@ -30,6 +30,30 @@ const register = async ({ name, email, password, role = 'customer' }) => {
   return { id, name, email, role };
 };
 
+const listAll = async () => {
+  const users = await user.findAll(
+    { attributes: {
+      exclude: ['updatedAt', 'createdAt', 'password'],
+    } },
+);
+  const roledUsers = { customers: [], sellers: [], administrators: [] };
+  users.forEach((u) => {
+    roledUsers[`${u.role}s`] = [...roledUsers[`${u.role}s`], u];
+  });
+
+  return roledUsers;
+};
+
+const delUser = async (id) => {
+  const ERROR = 'User not found';
+  const message = 'User deleted successfully';
+  const userF = await user.destroy({ where: { id } });
+
+  if (userF === 0) return { code: StatusCodes.NOT_FOUND, err: ERROR };
+
+  return { message };
+};
+
 const login = async ({ email, password }) => {
   const ERROR = 'Incorrect email or password';
   const userF = await user.findOne({ where: { email } });
@@ -48,4 +72,4 @@ const login = async ({ email, password }) => {
   return { user: { id, role, name, email }, token };
 };
 
-module.exports = { register, login };
+module.exports = { register, listAll, delUser, login };
