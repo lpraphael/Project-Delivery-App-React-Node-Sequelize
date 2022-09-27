@@ -10,8 +10,8 @@ export default function NavBar() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
+
     setName(user.name);
-    console.log(user.name);
 
     const { role } = user;
     try {

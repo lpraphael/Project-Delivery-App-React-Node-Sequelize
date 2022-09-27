@@ -21,5 +21,12 @@ export const signIn = async (url, body) => {
 
 export const getAllDrinks = async (url) => {
   const { data } = await API.get(url);
+
+  return data;
+};
+
+export const getAllSellers = async () => {
+  const { data } = await API.get('/users/sellers');
+
   return data;
 };
