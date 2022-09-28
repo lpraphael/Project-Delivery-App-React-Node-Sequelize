@@ -35,6 +35,8 @@ function Login() {
 
       const { name, role, email, token } = result.user;
 
+      console.log(result);
+
       setToken({ token });
 
       dispatch(actionUser({ name, role, email }));

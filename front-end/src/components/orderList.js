@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import totalValue from '../services/totalValue';
+import Loading from './loading';
 
 export default function OrderList() {
   const { qtyOfDrinks } = useSelector(({ saveDrinks }) => saveDrinks);
   const orderItens = qtyOfDrinks.filter((e) => e.qty > 0);
-  const total = totalValue(qtyOfDrinks);
+  const [items, setItems] = useState([]);
+  const total = totalValue(items);
 
-  console.log(qtyOfDrinks);
+  useEffect(() => {
+    setItems(orderItens);
+  }, []);
 
-  const removeItem = () => {
-    console.log('teste');
+  const removeItem = (itemId) => {
+    const filteredItems = items.filter(({ id }) => id !== itemId);
+    if (orderItens.length === 1) {
+      setItems([]);
+    }
+    console.log(filteredItems);
+    setItems(filteredItems);
   };
 
   return (
@@ -29,46 +38,56 @@ export default function OrderList() {
             <th>Remover Item</th>
           </tr>
         </thead>
-        {orderItens.map((item, i) => (
-          <tbody key={ item.id }>
-            <tr>
-              <td
-                data-testId={ `customer_checkout__element-order-table-item-number-${i}` }
-              >
-                {i}
-              </td>
-              <td
-                data-testId={ `customer_checkout__element-order-table-name-${i}` }
-              >
-                {item.name}
-              </td>
-              <td
-                data-testId={ `customer_checkout__element-order-table-quantity-${i}` }
-              >
-                {item.qty}
-              </td>
-              <td
-                data-testId={ `customer_checkout__element-order-table-unit-price-${i}` }
-              >
-                {(item.price).replace('.', ',')}
-              </td>
-              <td
-                data-testId={ `customer_checkout__element-order-table-sub-total-${i}` }
-              >
-                {(Number(item.qty) * Number(item.price)).toFixed(2).replace('.', ',')}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  data-testId={ `customer_checkout__element-order-table-remove-${i}` }
-                  onClick={ () => removeItem() }
-                >
-                  Remover
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        ))}
+        {!items ? <Loading /> : (
+          <div>
+            {items.map((item, i) => (
+              <tbody key={ item.id }>
+                <tr>
+                  <td
+                    data-testId={
+                      `customer_checkout__element-order-table-item-number-${i}`
+                    }
+                  >
+                    {i + 1}
+                  </td>
+                  <td
+                    data-testId={ `customer_checkout__element-order-table-name-${i}` }
+                  >
+                    {item.name}
+                  </td>
+                  <td
+                    data-testId={ `customer_checkout__element-order-table-quantity-${i}` }
+                  >
+                    {item.qty}
+                  </td>
+                  <td
+                    data-testId={
+                      `customer_checkout__element-order-table-unit-price-${i}`
+                    }
+                  >
+                    {(item.price).replace('.', ',')}
+                  </td>
+                  <td
+                    data-testId={
+                      `customer_checkout__element-order-table-sub-total-${i}`
+                    }
+                  >
+                    {(Number(item.qty) * Number(item.price)).toFixed(2).replace('.', ',')}
+                  </td>
+                  <td>
+                    <button
+                      type="button"
+                      data-testId={ `customer_checkout__element-order-table-remove-${i}` }
+                      onClick={ () => removeItem(item.id) }
+                    >
+                      Remover
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            ))}
+          </div>
+        )}
         <h1
           data-testId="customer_checkout__element-order-total-price"
         >
