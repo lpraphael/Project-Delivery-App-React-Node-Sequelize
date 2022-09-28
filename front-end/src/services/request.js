@@ -43,3 +43,8 @@ export const getAllOrders = async (token) => {
   const { data } = await API.get(url, { headers: { Authorization: token } });
   return data;
 };
+
+export const adminRegister = async (url, body) => {
+  const { data } = await API.post(url, body);
+  return data;
+};

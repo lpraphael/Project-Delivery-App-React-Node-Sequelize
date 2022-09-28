@@ -1,6 +1,6 @@
 export const validateName = (nameRegistered) => {
   const MIN_LENGTH = 12;
-  return nameRegistered.length > MIN_LENGTH;
+  return nameRegistered.length >= MIN_LENGTH;
 };
 export const validateEmail = (email) => {
   const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
