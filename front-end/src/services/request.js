@@ -40,8 +40,6 @@ export const createOrder = async (url, body, token) => {
 
 export const getAllOrders = async (token) => {
   const url = '/sales';
-
   const { data } = await API.get(url, { headers: { Authorization: token } });
-
   return data;
 };

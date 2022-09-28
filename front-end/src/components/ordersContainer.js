@@ -11,17 +11,6 @@ function OrderContainer({ sale }) {
 
   const newDate = new Date(saleDate);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user.role === 'customer') {
-      setRole('customer');
-    }
-
-    if (user.role === 'seller') {
-      setRole('seller');
-    }
-  }, []);
-
   const statusTypes = {
     Pendente: 'Pendente',
     Preparando: 'Preparando',
@@ -44,6 +33,17 @@ function OrderContainer({ sale }) {
       break;
     }
   }, [status, statusTypes.Entregue, statusTypes.Pendente, statusTypes.Preparando]);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'customer') {
+      setRole('customer');
+    }
+
+    if (user.role === 'seller') {
+      setRole('seller');
+    }
+  }, []);
 
   return (
     <Link to={ `/${role}/orders/${id}` }>
@@ -81,7 +81,7 @@ OrderContainer.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    totalPrice: PropTypes.number,
+    totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.number,
   }).isRequired,
