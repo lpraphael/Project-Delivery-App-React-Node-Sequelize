@@ -13,7 +13,6 @@ export default function ShoppingCart() {
   }, [arrayOfDrinks]);
 
   const total = totalValue(qtyOfDrinks);
-  console.log(typeof (total));
 
   return (
     <button

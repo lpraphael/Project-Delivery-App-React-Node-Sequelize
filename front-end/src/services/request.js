@@ -25,8 +25,10 @@ export const getAllDrinks = async (url) => {
   return data;
 };
 
-export const getAllSellers = async () => {
-  const { data } = await API.get('/users/sellers');
+export const getAllSellers = async (token) => {
+  const url = '/users/sellers';
+
+  const { data } = await API.get(url, { headers: { Authorization: token } });
 
   return data;
 };
