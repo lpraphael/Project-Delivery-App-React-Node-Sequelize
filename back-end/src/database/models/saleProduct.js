@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     quantity: DataTypes.INTEGER,
     createdAt: { type: DataTypes.DATE, field: 'created_at' },
     updatedAt: { type: DataTypes.DATE, field: 'updated_at' },
-  }, { tablename: 'salesProducts', timestamps: true })
+  }, { tablename: 'sales_products', timestamps: true, underscored: true })
   
   salesProduct.associate = (models) => {
     models.sale.belongsToMany(models.product, {
