@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { getAllSellers } from '../services/request';
+import { useNavigate } from 'react-router-dom';
+import { getAllSellers, createOrder } from '../services/request';
+import totalValue from '../services/totalValue';
 
 export default function ShippingDetails() {
   const [selectSeller, setSelectSeller] = useState('');
   const [sellers, setSellers] = useState([]);
   const [infos, setInfos] = useState({ address: '', number: '' });
+  const user = JSON.parse(localStorage.getItem('user'));
+  const orders = JSON.parse(localStorage.getItem('orders'));
+  const total = totalValue(orders);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSellers = async () => {
-      const user = JSON.parse(localStorage.getItem('user'));
-
       const result = await getAllSellers(user.token);
 
       setSellers(result);
+      setSelectSeller(result[0].name);
     };
     fetchSellers();
-  }, []);
+  }, [orders]);
 
   const setSeller = (value) => {
     setSelectSeller(value);
@@ -25,10 +31,36 @@ export default function ShippingDetails() {
     setInfos((prev) => ({ ...prev, [name]: value }));
   };
 
+  const sendingOrder = async (body) => {
+    const result = await createOrder('/sales', body, user.token);
+
+    return result;
+  };
+
+  const orderCompleted = async () => {
+    console.log('cheguei');
+    const idSeller = sellers.find((seller) => seller.name === selectSeller);
+    const ordersInfos = orders.map(({ qty, id }) => ({ quantity: qty, productId: id }));
+    console.log(idSeller);
+
+    const newOrder = {
+      userId: user.id,
+      sellerId: idSeller.id,
+      totalPrice: total,
+      deliveryAddress: infos.address,
+      deliveryNumber: infos.number,
+      productsArray: ordersInfos,
+    };
+
+    const data = await sendingOrder(newOrder);
+    console.log(data);
+    navigate(`/customer/orders/${data.id}`);
+  };
+
   return (
     <>
       <label htmlFor="seller">
-        Coluna
+        P. Vendedora Responsável
         <select
           data-testid="customer_checkout__select-seller"
           id="seller"
@@ -50,7 +82,7 @@ export default function ShippingDetails() {
         />
       </label>
       <label htmlFor="number">
-        Endereço
+        Número
         <input
           id="number"
           type="text"
@@ -63,7 +95,8 @@ export default function ShippingDetails() {
       <button
         type="button"
         data-testId="customer_checkout__button-submit-order"
-        onClick={ console.log('comprei!') }
+        disabled={ Number(total) === 0 || infos.address === '' || infos.number === '' }
+        onClick={ () => orderCompleted() }
       >
         FINALIZAR PEDIDO
       </button>

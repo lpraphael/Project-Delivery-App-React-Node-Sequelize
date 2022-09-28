@@ -8,6 +8,7 @@ export default function OrderList() {
   const orderItens = qtyOfDrinks.filter((e) => e.qty > 0);
   const [items, setItems] = useState([]);
   const total = totalValue(items);
+  localStorage.setItem('orders', JSON.stringify(items));
 
   useEffect(() => {
     setItems(orderItens);
@@ -18,8 +19,9 @@ export default function OrderList() {
     if (orderItens.length === 1) {
       setItems([]);
     }
-    console.log(filteredItems);
     setItems(filteredItems);
+
+    localStorage.setItem('orders', JSON.stringify(items));
   };
 
   return (

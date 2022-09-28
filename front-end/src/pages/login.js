@@ -33,7 +33,7 @@ function Login() {
     try {
       const result = await signIn('/login', user);
 
-      const { name, role, email, token } = result.user;
+      const { id, name, role, email, token } = result.user;
 
       console.log(result);
 
@@ -41,6 +41,7 @@ function Login() {
 
       dispatch(actionUser({ name, role, email }));
       localStorage.setItem('user', JSON.stringify({
+        id,
         name,
         email,
         role,

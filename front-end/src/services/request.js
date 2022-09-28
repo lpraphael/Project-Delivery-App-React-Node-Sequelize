@@ -32,3 +32,8 @@ export const getAllSellers = async (token) => {
 
   return data;
 };
+
+export const createOrder = async (url, body, token) => {
+  const { data } = await API.post(url, body, { headers: { Authorization: token } });
+  return data;
+};
