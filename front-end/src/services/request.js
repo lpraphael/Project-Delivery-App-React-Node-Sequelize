@@ -37,3 +37,11 @@ export const createOrder = async (url, body, token) => {
   const { data } = await API.post(url, body, { headers: { Authorization: token } });
   return data;
 };
+
+export const getAllOrders = async (token) => {
+  const url = '/sales';
+
+  const { data } = await API.get(url, { headers: { Authorization: token } });
+
+  return data;
+};

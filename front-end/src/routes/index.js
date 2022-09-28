@@ -1,12 +1,14 @@
 import React from 'react';
-import { Routes as Switch, Route, Navigate } from 'react-router-dom';
+import { Routes as Switch, Route } from 'react-router-dom';
 import Login from '../pages/login';
 import Register from '../pages/register';
 import SellerOrder from '../pages/sellerOrders';
 import Products from '../pages/products';
 import Admin from '../pages/admin';
 import Checkout from '../pages/checkout';
-import CustomerOrder from '../pages/customerOrder';
+import CustomerOrder from '../pages/customerOrders';
+import OrderDetails from '../pages/orderDetails';
+import Home from '../components/home';
 
 function Routes() {
   return (
@@ -29,6 +31,11 @@ function Routes() {
       <Route
         exact
         path="/customer/orders/:id"
+        element={ <OrderDetails /> }
+      />
+      <Route
+        exact
+        path="/customer/orders/"
         element={ <CustomerOrder /> }
       />
       <Route
@@ -47,8 +54,9 @@ function Routes() {
         element={ <Admin /> }
       />
       <Route
+        exact
         path="/"
-        element={ <Navigate to="/login" replace /> }
+        element={ <Home /> }
       />
     </Switch>
   );
