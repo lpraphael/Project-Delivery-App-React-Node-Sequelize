@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { validateEmail, validatePassword } from '../services/registerValidation';
 import { actionUser } from '../Redux/actions';
 import { setToken, signIn } from '../services/request';
@@ -22,6 +22,11 @@ function Login() {
       setDisable(true);
     }
   }, [user]);
+
+  const userLogged = JSON.parse(localStorage.getItem('user'));
+  console.log(user);
+
+  if (userLogged) return <Navigate to="/" />;
 
   const handleChange = ({ target: { name, value } }) => {
     setUser((prev) => ({ ...prev, [name]: value }));
