@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment/moment';
 
 function OrderContainer({ sale }) {
+  console.log(sale);
   const [bgColor, setBgColor] = useState('');
   const [role, setRole] = useState('');
-
   const { id, status, totalPrice, deliveryAddress, deliveryNumber, saleDate } = sale;
 
   const newDate = new Date(saleDate);
@@ -46,26 +47,30 @@ function OrderContainer({ sale }) {
 
   return (
     <Link to={ `/${role}/orders/${id}` }>
-      <div
-        data-testid={ `${role}_orders__element-order-id-${id}` }
-      >
-        <p>Pedido</p>
-        <span>{`00${id}`}</span>
-      </div>
-      <div
-        data-testid={ `${role}_orders__element-delivery-status-${id}` }
-        style={ { backgroundColor: { bgColor } } }
-      >
-        <h2>{status}</h2>
-      </div>
-      <div data-testid={ `${role}_orders__element-order-date-${id}` }>
-        {newDate.toString()}
-      </div>
-      <div data-testid={ `${role}_orders__element-card-price-${id}` }>
-        {`R$ ${totalPrice}`}
-      </div>
-      <div data-testid={ `${role}_orders__element-card-address-${id}` }>
-        {`${deliveryAddress}, ${deliveryNumber}`}
+      <div>
+        <div
+          data-testid={ `${role}_orders__element-order-id-${id}` }
+        >
+          <p>Pedido</p>
+          <span>{`00${id}`}</span>
+        </div>
+        <div
+          data-testid={ `${role}_orders__element-delivery-status-${id}` }
+          style={ { backgroundColor: { bgColor } } }
+        >
+          <h2>{status}</h2>
+        </div>
+        <div data-testid={ `${role}_orders__element-order-date-${id}` }>
+          <div>
+            {moment(newDate.toString()).format('DD/MM/yyyy')}
+          </div>
+        </div>
+        <div data-testid={ `${role}_orders__element-card-price-${id}` }>
+          {`${totalPrice.toString().replace('.', ',')}`}
+        </div>
+        <div data-testid={ `${role}_orders__element-card-address-${id}` }>
+          {`${deliveryAddress}, ${deliveryNumber}`}
+        </div>
       </div>
     </Link>
   );
