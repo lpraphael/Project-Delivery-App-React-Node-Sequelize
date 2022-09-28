@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from '../components/navBar';
 import OrderContainer from '../components/ordersContainer';
-import { getSellerOrders } from '../services/request';
+import { getAllOrders } from '../services/request';
 
 function SellerOrder() {
   const [sales, setSales] = useState([]);
@@ -9,7 +9,7 @@ function SellerOrder() {
 
   useEffect(() => {
     const fetchSales = async () => {
-      const result = await getSellerOrders(user.token);
+      const result = await getAllOrders(user.token);
       setSales(result);
     };
     fetchSales();
