@@ -95,7 +95,7 @@ export default function NavBar() {
       </h2>
       <button
         className="logOut-icon"
-        type="submit"
+        type="button"
         onClick={ handleLogout }
         data-testid="customer_products__element-navbar-link-logout"
       >

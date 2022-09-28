@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 
 function OrderContainer({ sale }) {
   const [bgColor, setBgColor] = useState('');
+  const [role, setRole] = useState('');
+
   const { id, status, totalPrice, deliveryAddress, deliveryNumber, saleDate } = sale;
 
   const newDate = new Date(saleDate);
@@ -31,27 +33,38 @@ function OrderContainer({ sale }) {
     }
   }, [status, statusTypes.Entregue, statusTypes.Pendente, statusTypes.Preparando]);
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user.role === 'customer') {
+      setRole('customer');
+    }
+
+    if (user.role === 'seller') {
+      setRole('seller');
+    }
+  }, []);
+
   return (
-    <Link to={ `/seller/orders/${id}` }>
+    <Link to={ `/${role}/orders/${id}` }>
       <div
-        data-testid={ `seller_orders__element-order-id-${id}` }
+        data-testid={ `${role}_orders__element-order-id-${id}` }
       >
         <p>Pedido</p>
         <span>{`00${id}`}</span>
       </div>
       <div
-        data-testid={ `seller_orders__element-delivery-status-${id}` }
+        data-testid={ `${role}_orders__element-delivery-status-${id}` }
         style={ { backgroundColor: { bgColor } } }
       >
         <h2>{status}</h2>
       </div>
-      <div data-testid={ `seller_orders__element-order-date-${id}` }>
-        {newDate}
+      <div data-testid={ `${role}_orders__element-order-date-${id}` }>
+        {newDate.toString()}
       </div>
-      <div data-testid={ `seller_orders__element-card-price-${id}` }>
+      <div data-testid={ `${role}_orders__element-card-price-${id}` }>
         {`R$ ${totalPrice}`}
       </div>
-      <div data-testid={ `seller_orders__element-card-address-${id}` }>
+      <div data-testid={ `${role}_orders__element-card-address-${id}` }>
         {`${deliveryAddress}, ${deliveryNumber}`}
       </div>
     </Link>
@@ -63,7 +76,7 @@ OrderContainer.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    totalPrice: PropTypes.number,
+    totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
     deliveryNumber: PropTypes.number,
   }).isRequired,
