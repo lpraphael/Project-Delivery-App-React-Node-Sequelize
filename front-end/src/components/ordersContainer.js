@@ -11,28 +11,25 @@ function OrderContainer({ sale }) {
 
   const newDate = new Date(saleDate);
 
-  const statusTypes = {
-    Pendente: 'Pendente',
-    Preparando: 'Preparando',
-    Entregue: 'Entregue',
-  };
-
   useEffect(() => {
     switch (status) {
-    case statusTypes.Pendente:
+    case 'Pendente':
       setBgColor('#CCB800');
       break;
-    case statusTypes.Preparando:
+    case 'Preparando':
       setBgColor('#66CC00');
       break;
-    case statusTypes.Entregue:
+    case 'Em Trânsito':
+      setBgColor('#2da0ec');
+      break;
+    case 'Entregue':
       setBgColor('#00CC9B');
       break;
     default:
       setBgColor('#FF0000');
       break;
     }
-  }, [status, statusTypes.Entregue, statusTypes.Pendente, statusTypes.Preparando]);
+  }, [status]);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -56,7 +53,7 @@ function OrderContainer({ sale }) {
         </div>
         <div
           data-testid={ `${role}_orders__element-delivery-status-${id}` }
-          style={ { backgroundColor: { bgColor } } }
+          style={ { backgroundColor: bgColor } }
         >
           <h2>{status}</h2>
         </div>

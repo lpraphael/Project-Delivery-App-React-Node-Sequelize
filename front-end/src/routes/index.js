@@ -9,6 +9,7 @@ import Checkout from '../pages/checkout';
 import CustomerOrder from '../pages/customerOrders';
 import OrderDetails from '../pages/orderDetails';
 import Home from '../components/home';
+import SellerOrderDetails from '../pages/sellerOrderDetails';
 
 function Routes() {
   return (
@@ -47,6 +48,11 @@ function Routes() {
         exact
         path="/seller/orders"
         element={ <SellerOrder /> }
+      />
+      <Route
+        exact
+        path="/seller/orders/:id"
+        element={ <SellerOrderDetails /> }
       />
       <Route
         exact

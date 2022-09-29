@@ -48,3 +48,19 @@ export const adminRegister = async (url, body) => {
   const { data } = await API.post(url, body);
   return data;
 };
+
+export const getOrdersById = async (token, id) => {
+  const url = `/sales/${id}`;
+  const { data } = await API.get(url, { headers: { Authorization: token } });
+  return data;
+};
+
+export const handlePrepareCheck = async (token, idOrder) => {
+  const dispatch = { status: 'Preparando' };
+  await API.patch(`/sales/${idOrder}`, dispatch, { headers: { Authorization: token } });
+};
+
+export const handleDispatchCheck = async (token, idOrder) => {
+  const dispatch = { status: 'Em Trânsito' };
+  await API.patch(`/sales/${idOrder}`, dispatch, { headers: { Authorization: token } });
+};
