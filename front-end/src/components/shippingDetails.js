@@ -21,7 +21,7 @@ export default function ShippingDetails() {
       setSelectSeller(result[0].name);
     };
     fetchSellers();
-  }, [orders]);
+  }, [orders, user.token]);
 
   const setSeller = (value) => {
     setSelectSeller(value);

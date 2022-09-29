@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-max-depth */
 import moment from 'moment/moment';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -21,6 +20,30 @@ function OrderDetails() {
   const newDate = new Date(sale.saleDate);
   const newDeliveryLabelOrderId = 'element-order-details-label-delivery-status';
 
+  // Buttons created separately because of lint erros
+  const buttonPrepareOrder = () => (
+    <button
+      type="button"
+      data-testid="seller_order_details__button-preparing-check"
+      onClick={ () => handlePrepareCheck(user.token, id) }
+      disabled={ sale.status !== 'Pendente' }
+    >
+      Preparar Pedido
+    </button>
+  );
+
+  const buttonDispatchOrder = () => (
+    <button
+      type="button"
+      data-testid="seller_order_details__button-dispatch-check"
+      onClick={ () => handleDispatchCheck(user.token, id) }
+      disabled={ sale.status === 'Pendente'
+  || sale.status === 'Em Trânsito' || sale.status === 'Entregue' }
+    >
+      Saiu para entrega
+    </button>
+  );
+
   return (
     <main>
       <h1>Detalhe do Pedido</h1>
@@ -39,26 +62,10 @@ function OrderDetails() {
               {sale.status}
             </th>
             <th>
-              <button
-                type="button"
-                data-testid="seller_order_details__button-preparing-check"
-                onClick={ () => handlePrepareCheck(user.token, id) }
-                disabled={ sale.status !== 'Pendente' }
-
-              >
-                Preparar Pedido
-              </button>
+              { buttonPrepareOrder() }
             </th>
             <th>
-              <button
-                type="button"
-                data-testid="seller_order_details__button-dispatch-check"
-                onClick={ () => handleDispatchCheck(user.token, id) }
-                disabled={ sale.status === 'Pendente'
-                || sale.status === 'Em Trânsito' || sale.status === 'Entregue' }
-              >
-                Saiu para entrega
-              </button>
+              { buttonDispatchOrder() }
             </th>
           </tr>
           <tr>
@@ -78,13 +85,11 @@ function OrderDetails() {
                 }
               >
                 {index + 1}
-
               </td>
               <td
                 data-testid={ `seller_order_details__element-order-table-name-${index}` }
               >
                 {product.name}
-
               </td>
               <td
                 data-testid={
@@ -92,7 +97,6 @@ function OrderDetails() {
                 }
               >
                 {product.salesProduct.quantity}
-
               </td>
               <td
                 data-testid={
@@ -100,7 +104,6 @@ function OrderDetails() {
                 }
               >
                 {`R$ ${product.price}`.replace('.', ',')}
-
               </td>
               <td
                 data-testid={
@@ -121,7 +124,6 @@ function OrderDetails() {
           { `Total: R$ ${sale.totalPrice}`.replace('.', ',') }
         </span>
       </div>
-
     </main>
   );
 }

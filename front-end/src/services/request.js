@@ -56,8 +56,8 @@ export const getOrdersById = async (token, id) => {
 };
 
 export const handlePrepareCheck = async (token, idOrder) => {
-  const dispatch = { status: 'Preparando' };
-  await API.patch(`/sales/${idOrder}`, dispatch, { headers: { Authorization: token } });
+  const prepare = { status: 'Preparando' };
+  await API.patch(`/sales/${idOrder}`, prepare, { headers: { Authorization: token } });
 };
 
 export const handleDispatchCheck = async (token, idOrder) => {
