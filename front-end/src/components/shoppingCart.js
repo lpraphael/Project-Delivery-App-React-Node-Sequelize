@@ -10,7 +10,7 @@ export default function ShoppingCart() {
 
   useEffect(() => {
     setArrayOfDrinks(qtyOfDrinks);
-  }, [arrayOfDrinks]);
+  }, [arrayOfDrinks, qtyOfDrinks]);
 
   const total = totalValue(qtyOfDrinks);
 

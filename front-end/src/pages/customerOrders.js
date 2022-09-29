@@ -14,8 +14,7 @@ export default function CustomerOrder() {
       setOrders(result);
     };
     fetchOrders();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user.token]);
 
   return (
     <>
