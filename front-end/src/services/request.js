@@ -50,7 +50,6 @@ export const getAllOrders = async (token) => {
 
 export const adminRegister = async (url, body) => {
   const { data } = await API.post(url, body);
-
   return data;
 };
 
@@ -73,5 +72,11 @@ export const handlePrepareCheck = async (token, idOrder) => {
 
 export const handleDispatchCheck = async (token, idOrder) => {
   const dispatch = { status: 'Em Trânsito' };
+  await API.patch(`/sales/${idOrder}`, dispatch, { headers: { Authorization: token } });
+};
+
+export const handleDispatchdelivered = async (token, idOrder) => {
+  const dispatch = { status: 'Entregue' };
+
   await API.patch(`/sales/${idOrder}`, dispatch, { headers: { Authorization: token } });
 };
