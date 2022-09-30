@@ -1,7 +1,8 @@
 import moment from 'moment/moment';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getOrdersById } from '../services/request';
+import { getOrdersById,
+  handleDispatchCheck, handlePrepareCheck } from '../services/request';
 
 function OrderDetails() {
   const [sale, setSale] = useState({});
