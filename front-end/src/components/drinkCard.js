@@ -5,9 +5,6 @@ import Loading from './loading';
 
 export default function DrinkCard() {
   const [allDrinks, setAllDrinks] = useState([]);
-  // const [inputValue, setInputValue] = useState(0)
-  // const [subValue, setsubValue] = useState(0)
-  // const [sumValue, setsumValue] = useState(0)
   const { drinks } = useSelector(({ saveDrinks }) => saveDrinks);
   const dispatch = useDispatch();
 
@@ -40,9 +37,7 @@ export default function DrinkCard() {
 
     newArray[index] = drink;
 
-    // console.log(newArray);
-
-    setAllDrinks(() => newArray);
+    setAllDrinks(newArray);
 
     dispatch(actionQtyDrinks(newArray));
   };

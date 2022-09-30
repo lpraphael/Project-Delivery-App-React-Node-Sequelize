@@ -38,10 +38,8 @@ export default function ShippingDetails() {
   };
 
   const orderCompleted = async () => {
-    console.log('cheguei');
     const idSeller = sellers.find((seller) => seller.name === selectSeller);
     const ordersInfos = orders.map(({ qty, id }) => ({ quantity: qty, productId: id }));
-    console.log(idSeller);
 
     const newOrder = {
       userId: user.id,
@@ -53,7 +51,6 @@ export default function ShippingDetails() {
     };
 
     const data = await sendingOrder(newOrder);
-    console.log(data);
     navigate(`/customer/orders/${data.id}`);
   };
 

@@ -16,6 +16,7 @@ export const requestRegister = async (url, body) => {
 
 export const signIn = async (url, body) => {
   const { data } = await API.post(url, body);
+
   return data;
 };
 
@@ -35,16 +36,26 @@ export const getAllSellers = async (token) => {
 
 export const createOrder = async (url, body, token) => {
   const { data } = await API.post(url, body, { headers: { Authorization: token } });
+
   return data;
 };
 
 export const getAllOrders = async (token) => {
   const url = '/sales';
+
   const { data } = await API.get(url, { headers: { Authorization: token } });
+
   return data;
 };
 
 export const adminRegister = async (url, body) => {
   const { data } = await API.post(url, body);
+
+  return data;
+};
+
+export const getOrderById = async (url) => {
+  const { data } = await API.get(url, { headers: { Authorization: token } });
+
   return data;
 };

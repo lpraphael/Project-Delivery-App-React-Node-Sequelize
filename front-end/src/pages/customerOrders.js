@@ -10,7 +10,6 @@ export default function CustomerOrder() {
   useEffect(() => {
     const fetchOrders = async () => {
       const result = await getAllOrders(user.token);
-      console.log(result);
       setOrders(result);
     };
     fetchOrders();
