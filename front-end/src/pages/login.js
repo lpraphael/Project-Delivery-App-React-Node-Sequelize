@@ -24,7 +24,6 @@ function Login() {
   }, [user]);
 
   const userLogged = JSON.parse(localStorage.getItem('user'));
-  console.log(user);
 
   if (userLogged) return <Navigate to="/" />;
 
@@ -39,8 +38,6 @@ function Login() {
       const result = await signIn('/login', user);
 
       const { id, name, role, email, token } = result.user;
-
-      console.log(result);
 
       setToken({ token });
 

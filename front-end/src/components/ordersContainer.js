@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import moment from 'moment/moment';
 
 function OrderContainer({ sale }) {
-  console.log(sale);
   const [bgColor, setBgColor] = useState('');
   const [role, setRole] = useState('');
   const { id, status, totalPrice, deliveryAddress, deliveryNumber, saleDate } = sale;
