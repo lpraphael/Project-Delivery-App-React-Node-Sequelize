@@ -77,7 +77,8 @@ function OrderDetailsCustomer() {
                   type="button"
                   data-testid={ `${test}_button-delivery-check` }
                   onClick={ () => handleDelivery() }
-                  disabled={ sale.status === 'Entregue' }
+                  disabled={ sale.status === 'Pendente' || sale.status === 'Preparando'
+                  || sale.status === 'Entregue' }
                 >
                   Marcar como entregue
                 </button>

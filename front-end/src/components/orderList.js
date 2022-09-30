@@ -11,7 +11,7 @@ export default function OrderList() {
 
   useEffect(() => {
     setItems(orderItens);
-  }, [orderItens]);
+  }, []);
 
   const removeItem = (itemId) => {
     const filteredItems = items.filter(({ id }) => id !== itemId);
