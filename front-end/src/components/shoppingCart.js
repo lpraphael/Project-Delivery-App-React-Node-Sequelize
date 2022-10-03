@@ -16,6 +16,10 @@ export default function ShoppingCart() {
 
   return (
     <button
+      className="flex justify-center items-center
+      font-fontDic font-bold
+      rounded-[10px] border w-[200px] h-[50px] text-nord-dark-2
+      bg-nord-frost-1 mr-[50px] mb-[20px]"
       type="button"
       data-testId="customer_products__button-cart"
       onClick={ () => navigate('/customer/checkout') }

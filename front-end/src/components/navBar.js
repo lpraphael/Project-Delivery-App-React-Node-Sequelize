@@ -40,22 +40,27 @@ export default function NavBar() {
 
   function customerNavBar() {
     return (
-      <>
+      <div
+        className="w-[260px] p-[10px]
+      items-center m-[10px] flex justify-between"
+      >
         <Link
-          className="product-icon"
+          className="product-icon text-nord-light-3
+           text-[20px] hover:border-b-2 h-[40px] w-[20px] hover:border-nord-aurora-1"
           to="/customer/products"
           data-testid="customer_products__element-navbar-link-products"
         >
           Produtos
         </Link>
         <Link
-          className="orders-icon"
+          className="orders-icon text-nord-light-3 text-[20px]
+          hover:border-b-2 h-[40px] hover:border-nord-aurora-1"
           to="/customer/orders"
           data-testid="customer_products__element-navbar-link-orders"
         >
           Meus Pedidos
         </Link>
-      </>
+      </div>
     );
   }
 
@@ -74,7 +79,7 @@ export default function NavBar() {
   function adminNavBar() {
     return (
       <Link
-        className="orders-icon"
+        className="orders-icon text-nord-light-3"
         to="/admin/manage"
         data-testid="customer_products__element-navbar-link-orders"
       >
@@ -84,23 +89,30 @@ export default function NavBar() {
   }
 
   return (
-    <header>
+    <header
+      className=" flex
+      text-nord-light-3 p-[10px] justify-between items-center w-[800px]"
+    >
       { isCustomer && customerNavBar() }
       { isSeller && sellerNavBar() }
       { isAdmin && adminNavBar() }
-      <h2
-        data-testid="customer_products__element-navbar-user-full-name"
-      >
-        { name }
-      </h2>
-      <button
-        className="logOut-icon"
-        type="button"
-        onClick={ handleLogout }
-        data-testid="customer_products__element-navbar-link-logout"
-      >
-        SAIR
-      </button>
+      <div className="flex justify-between w-[180px] h-[20px] items-center">
+        <h2
+          className="text-[18px]"
+          data-testid="customer_products__element-navbar-user-full-name"
+        >
+          { name }
+        </h2>
+        <button
+          className="orders-icon text-nord-light-3 text-[18px]
+          hover:border-b-2 h-[40px] hover:border-nord-aurora-1"
+          type="button"
+          onClick={ handleLogout }
+          data-testid="customer_products__element-navbar-link-logout"
+        >
+          SAIR
+        </button>
+      </div>
     </header>
   );
 }

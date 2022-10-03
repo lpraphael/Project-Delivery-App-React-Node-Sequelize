@@ -24,10 +24,18 @@ export default function Products() {
   });
 
   return (
-    <div>
-      <NavBar />
-      <DrinkCard />
-      <ShoppingCart />
+    <div
+      className="h-screen w-screen justify-center items-center border"
+    >
+      <div className="flex p-[20px] justify-center">
+        <NavBar />
+      </div>
+      <div className="flex flex-wrap p-[20px] justify-center items-center">
+        <DrinkCard />
+      </div>
+      <div className="flex items-center justify-end">
+        <ShoppingCart />
+      </div>
     </div>
   );
 }

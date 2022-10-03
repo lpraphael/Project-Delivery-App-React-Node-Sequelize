@@ -42,52 +42,76 @@ export default function DrinkCard() {
     dispatch(actionQtyDrinks(newArray));
   };
 
-  const renderCards = () => (allDrinks.map((drink, index) => (
-    <div key={ drink.id }>
-      <div>
+  const renderCards = () => (allDrinks.map((drink, index) => index > 0 && (
+    <div
+      className="flex flex-col items-center text-center
+        justify-center
+        border-[1px]
+        border-nord-aurora-1 m-[10px] p-[10px] text-nord-light-3 rounded-[5px] w-[280px]"
+      key={ drink.id }
+    >
+      <div
+        className="flex flex-col items-center justify-center"
+      >
+        <div
+          className="w-[200px] h-[200px]
+           flex items-center justify-center"
+        >
+          <img
+            className="w-[200px] h-[200px] rounded-full"
+            data-testid={ `customer_products__img-card-bg-image-${drink.id}` }
+            src={ drink.urlImage }
+            alt={ drink.name }
+          />
+        </div>
         <p
+          className="p-[5px] text-[20px]"
           data-testid={ `customer_products__element-card-price-${drink.id}` }
         >
+          R$
           {drink.price.replace('.', ',')}
         </p>
-        <img
-          data-testid={ `customer_products__img-card-bg-image-${drink.id}` }
-          src={ drink.urlImage }
-          alt={ drink.name }
-        />
       </div>
       <div>
         <p
+          className="text-[15px]"
           data-testid={ `customer_products__element-card-title-${drink.id}` }
         >
           { drink.name }
         </p>
-        <button
-          data-testid={ `customer_products__button-card-rm-item-${drink.id}` }
-          type="button"
-          name="sub"
-          onClick={ ({ target }) => quantityChange(target, drink, index) }
-        >
-          -
-        </button>
-        <label htmlFor="drinkQty">
-          <input
-            id="drinkQty"
-            type="number"
-            name="number"
-            value={ drink.qty }
-            onChange={ ({ target }) => quantityChange(target, drink, index) }
-            data-testid={ `customer_products__input-card-quantity-${drink.id}` }
-          />
-        </label>
-        <button
-          data-testid={ `customer_products__button-card-add-item-${drink.id}` }
-          type="button"
-          name="sum"
-          onClick={ ({ target }) => quantityChange(target, drink, index) }
-        >
-          +
-        </button>
+        <div className="flex items-center justify-center w-[250px]">
+          <label htmlFor="drinkQty">
+            <button
+              className=" border w-[28px] h-[28px] items-center
+              rounded-[2px]"
+              data-testid={ `customer_products__button-card-rm-item-${drink.id}` }
+              type="button"
+              name="sub"
+              onClick={ ({ target }) => quantityChange(target, drink, index) }
+            >
+              -
+            </button>
+            <input
+              className="
+            text-nord-dark-1 font-sans p-[3px] m-[5px] rounded-[5px] w-[150px]"
+              id="drinkQty"
+              type="number"
+              name="number"
+              value={ drink.qty }
+              onChange={ ({ target }) => quantityChange(target, drink, index) }
+              data-testid={ `customer_products__input-card-quantity-${drink.id}` }
+            />
+          </label>
+          <button
+            className="border w-[28px] h-[28px] rounded-[2px]"
+            data-testid={ `customer_products__button-card-add-item-${drink.id}` }
+            type="button"
+            name="sum"
+            onClick={ ({ target }) => quantityChange(target, drink, index) }
+          >
+            +
+          </button>
+        </div>
       </div>
     </div>
   )));

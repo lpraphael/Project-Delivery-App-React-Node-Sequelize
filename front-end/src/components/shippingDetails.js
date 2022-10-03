@@ -55,48 +55,81 @@ export default function ShippingDetails() {
   };
 
   return (
-    <>
-      <label htmlFor="seller">
-        P. Vendedora Responsável
-        <select
-          data-testid="customer_checkout__select-seller"
-          id="seller"
-          value={ selectSeller }
-          onChange={ ({ target }) => setSeller(target.value) }
-        >
-          {sellers.map(({ name }) => <option key={ name } value={ name }>{name}</option>)}
-        </select>
-      </label>
-      <label htmlFor="address">
-        Endereço
-        <input
-          id="address"
-          type="address"
-          name="address"
-          value={ infos.address }
-          onChange={ handleChange }
-          data-testid="customer_checkout__input-address"
-        />
-      </label>
-      <label htmlFor="number">
-        Número
-        <input
-          id="number"
-          type="text"
-          name="number"
-          value={ infos.number }
-          onChange={ handleChange }
-          data-testid="customer_checkout__input-address-number"
-        />
-      </label>
-      <button
-        type="button"
-        data-testId="customer_checkout__button-submit-order"
-        disabled={ Number(total) === 0 || infos.address === '' || infos.number === '' }
-        onClick={ () => orderCompleted() }
-      >
-        FINALIZAR PEDIDO
-      </button>
-    </>
+    <div
+      className="flex border w-[700px] flex-col
+    bg-nord-light-1"
+    >
+      <div className="flex flex-col justify-start">
+        <div className="flex flex-col">
+          <label
+            className="p-[5px] border
+            bg-nord-frost-2"
+            htmlFor="seller"
+          >
+            P. Vendedora Responsável
+            <select
+              className="m-[2px]"
+              data-testid="customer_checkout__select-seller"
+              id="seller"
+              value={ selectSeller }
+              onChange={ ({ target }) => setSeller(target.value) }
+            >
+              {
+                sellers
+                  .map(({ name }) => <option key={ name } value={ name }>{name}</option>)
+              }
+            </select>
+          </label>
+          <div className="p-[5px] bg-nord-frost-3 border">
+            <label htmlFor="address">
+              Endereço:
+              <input
+                className="border p-[2px]"
+                id="address"
+                type="address"
+                name="address"
+                value={ infos.address }
+                onChange={ handleChange }
+                data-testid="customer_checkout__input-address"
+              />
+            </label>
+          </div>
+          <div className="p-[5px] bg-nord-aurora-4 border">
+            <label htmlFor="number">
+              Número:
+              <input
+                className="border p-[2px] ml-[12px]"
+                id="number"
+                type="text"
+                name="number"
+                value={ infos.number }
+                onChange={ handleChange }
+                data-testid="customer_checkout__input-address-number"
+              />
+            </label>
+          </div>
+        </div>
+        <div className="flex justify-end border bg-nord-aurora-2">
+          <button
+            className="border w-[160px] h-[35px] m-[10px] rounded-[10px] bg-nord-dark-1
+            text-nord-light-1
+          cursor-{
+            disabled:hover:cursor-not-allowed
+            hover:cursor-pointer
+            hover:bg-nord-aurora-1 hover:text-nord-light-1 hover:font-fontDic
+            hover:font-medium disabled-cursor-not-allowed
+          }"
+            type="button"
+            data-testId="customer_checkout__button-submit-order"
+            disabled={
+              Number(total) === 0 || infos.address === '' || infos.number === ''
+            }
+            onClick={ () => orderCompleted() }
+          >
+            FINALIZAR PEDIDO
+          </button>
+        </div>
+      </div>
+    </div>
   );
 }
